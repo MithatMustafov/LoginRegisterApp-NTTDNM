@@ -1,5 +1,6 @@
+"use client"
 import React from 'react';
-import RegisterPage from '';
+import RegisterPage from '../../appComponents/Pages/pageRegister/pageRegister';
 
 const PageRegister = () => {
   return(
