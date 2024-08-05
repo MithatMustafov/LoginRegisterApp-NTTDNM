@@ -1,88 +1,34 @@
-import Image from 'next/image';
+"use client"
 import React, { useState } from 'react';
+import '../../cssTextFonts/fonts.css'
+import Image from 'next/image';
 import imgBackgroundLoginA1 from '../../Images/imgBackgroundLoginA4.jpg';
 import TextBox from '../../UI Components/texbox'; 
-import { FormState, FormErrors } from '../../varTypes/types'; 
-import '../../cssTextFonts/fonts.css'
+import { UserData } from '../../Interfaces/types';
+import { handleEmailChange, handlePasswordChange } from '../../Hooks/useFormHandlers';
 
 const PageRegister: React.FC = () => {
 
-  const [formState, setFormState] = useState<FormState>({
-    email: '',
-    password: '',
+  const [userData, setUserData] = useState<UserData>
+  ({ 
+    email: '', 
+    password: '' 
   });
 
-  const [formErrors, setFormErrors] = useState<FormErrors>({
-    email: '',
-    password: '',
+  const [userDataError, setUserDataError] = useState<UserData>
+  ({ 
+    email: '', 
+    password: '' 
   });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-
-    if (name === 'email')
-    {
-      if (value.length < 10) {
-        setFormErrors((prevState) => ({
-          ...prevState,
-          email: 'Email must be at least 10 characters long',
-        }));
-      } else {
-        setFormErrors((prevState) => ({
-          ...prevState,
-          email: '',
-        }));
-      }
-    }
-
-    if (name === 'password') {
-      if (value.length < 8) {
-        setFormErrors((prevState) => ({
-          ...prevState,
-          password: 'Password must be at least 8 characters long',
-        }));
-      } else {
-        setFormErrors((prevState) => ({
-          ...prevState,
-          password: '',
-        }));
-      }
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formState.email) {
-      setFormErrors((prevState) => ({
-        ...prevState,
-        email: 'Email is required',
-      }));
-    }
-
-    if (!formState.password) {
-      setFormErrors((prevState) => ({
-        ...prevState,
-        password: 'Password is required',
-      }));
-    }
-
-    if (formState.email && formState.password) {
-      console.log('Form submitted:', formState);
-    }
-  };
 
   return (
-    <div className='w-screen h-screen flex' onSubmit={handleSubmit}>
+    <div className='w-screen h-screen flex'>
       <div className='relative w-[65%] h-full'>
-        <Image
-          src={imgBackgroundLoginA1}
+        <Image 
+          src={imgBackgroundLoginA1} 
           alt='Background for login page'
           layout='fill'
-          objectFit='cover'
+          objectFit='cover' 
         />
         <div className='w-full h-full'>
           <div className='w-full h-full absolute bg-black opacity-60'></div>
@@ -98,33 +44,36 @@ const PageRegister: React.FC = () => {
       </div>
       <div className='w-[35%] h-full flex flex-col justify-center items-center bg-white'>
         <p className='text-2xl mb-6 font-semibold'>Sign Up</p>
+        
         <TextBox
           label='Email'
-          name='email'
-          value={formState.email}
-          onChange={handleInputChange}
-          errorMessage={formErrors.email}
+          value={userData.email}
+          onChange={(e) => handleEmailChange(e, userData, setUserData, userDataError, setUserDataError)}
+          errorMessage={userDataError.email}
           placeholder='Enter your email address'
           type='email'
         />
+        
         <TextBox
           label='Password'
-          name='password'
-          value={formState.password}
-          onChange={handleInputChange}
-          errorMessage={formErrors.password}
+          value={userData.password}
+          onChange={(e) => handlePasswordChange(e, userData, setUserData, userDataError, setUserDataError)}
+          errorMessage={userDataError.password}
           placeholder='Enter your password'
           type='password'
         />
+        
         <div className="w-[300px] flex mt-4">
-          <div className="flex">
-            <input type="checkbox" />
-            <div className="px-1 text-1xl textCS-stylishRegular">Remember me</div>
-          </div>
-          <div className="w-[160px] flex justify-end">
-            <div className="px-1 text-1xl textCS-stylishRegular"> Sign In</div>
-          </div>
+              <div className="flex">
+                <input type="checkbox" />
+                <div className="px-1 text-1xl textCS-stylishRegular">Remember me</div>
+              </div>
+
+              <div className="w-[160px] flex justify-end">
+                <div className="px-1 text-1xl textCS-stylishRegular">Don't have accout?</div>
+              </div>
         </div>
+
         <button
           type='submit'
           className='w-[300px] mt-4 px-4 py-2 bg-[#a3716e] text-white rounded'

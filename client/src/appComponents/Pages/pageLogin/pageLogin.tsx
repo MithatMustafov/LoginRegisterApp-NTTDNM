@@ -1,42 +1,25 @@
 "use client"
-import Image from 'next/image';
 import React, { useState } from 'react';
+import '../../cssTextFonts/fonts.css'
+import Image from 'next/image';
 import imgBackgroundLoginA1 from '../../Images/imgBackgroundLoginA4.jpg';
 import TextBox from '../../UI Components/texbox'; 
-import '../../cssTextFonts/fonts.css'
+import { UserData } from '../../Interfaces/types';
+import { handleEmailChange, handlePasswordChange } from '../../Hooks/useFormHandlers';
+
 const PageLogin: React.FC = () => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userData, setUserData] = useState<UserData>
+  ({ 
+    email: '', 
+    password: '' 
+  });
 
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-    if (value.length < 10)
-    {
-      setEmailError('Email must be at least 10 characters long');
-    }
-    else
-    {
-      setEmailError('');
-    }
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPassword(value);
-    if (value.length < 8)
-    {
-      setPasswordError('Password must be at least 8 characters long');
-    } 
-    else
-    {
-      setPasswordError('');
-    }
-  };
+  const [userDataError, setUserDataError] = useState<UserData>
+  ({ 
+    email: '', 
+    password: '' 
+  });
 
   return (
     <div className='w-screen h-screen flex'>
@@ -60,20 +43,22 @@ const PageLogin: React.FC = () => {
         </div>
       </div>
       <div className='w-[35%] h-full flex flex-col justify-center items-center bg-white'>
-        <p className='text-2xl mb-6 font-semibold'>Sign in</p>
+        <p className='text-2xl mb-6 font-semibold'>Sign In</p>
+        
         <TextBox
           label='Email'
-          value={email}
-          onChange={handleEmailChange}
-          errorMessage={emailError}
+          value={userData.email}
+          onChange={(e) => handleEmailChange(e, userData, setUserData, userDataError, setUserDataError)}
+          errorMessage={userDataError.email}
           placeholder='Enter your email address'
           type='email'
         />
+        
         <TextBox
           label='Password'
-          value={password}
-          onChange={handlePasswordChange}
-          errorMessage={passwordError}
+          value={userData.password}
+          onChange={(e) => handlePasswordChange(e, userData, setUserData, userDataError, setUserDataError)}
+          errorMessage={userDataError.password}
           placeholder='Enter your password'
           type='password'
         />
