@@ -1,13 +1,21 @@
 "use client"
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation'
 import '../../cssTextFonts/fonts.css'
 import Image from 'next/image';
 import imgBackgroundLoginA1 from '../../Images/imgBackgroundLoginA4.jpg';
-import TextBox from '../../UI Components/texbox'; 
-import { UserData } from '../../Interfaces/types';
-import { handleEmailChange, handlePasswordChange } from '../../Hooks/useFormHandlers';
+import TextBox from '../../uiComponents/texbox'; 
+import { UserData } from '../../interfaces/types';
+import { handleEmailChange, handlePasswordChange } from '../../utils/useFormHandlers';
+import { handleSubmit } from './funcHandleSubmit';
 
 const PageLogin: React.FC = () => {
+  
+  const router = useRouter();
+
+  const navigateToRegister = () => {
+    router.push('/register');
+  };
 
   const [userData, setUserData] = useState<UserData>
   ({ 
@@ -70,13 +78,19 @@ const PageLogin: React.FC = () => {
               </div>
 
               <div className="w-[160px] flex justify-end">
-                <div className="px-1 text-1xl textCS-stylishRegular">Don't have accout?</div>
+                <div
+                  className="px-1 text-1xl textCS-stylishRegular cursor-pointer"
+                  onClick={navigateToRegister}
+                  >
+                    Don't have accout?
+                  </div>
               </div>
         </div>
 
         <button
-          type='submit'
           className='w-[300px] mt-4 px-4 py-2 bg-[#a3716e] text-white rounded'
+          type='submit'
+          onClick={(e) => handleSubmit(e, userData, setUserData, setUserDataError)}
         >
           Sign In
         </button>

@@ -1,4 +1,4 @@
-import { UserData } from '../Interfaces/types';
+import { UserData } from '../interfaces/types';
 
 export const handleEmailChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -6,7 +6,7 @@ export const handleEmailChange = (
   setUserData: React.Dispatch<React.SetStateAction<UserData>>,
   userDataError: UserData,
   setUserDataError: React.Dispatch<React.SetStateAction<UserData>>
-) => {
+  ) => {
   const value = e.target.value;
   setUserData({ ...userData, email: value });
 
@@ -20,7 +20,7 @@ export const handleEmailChange = (
   else
   {
     setUserDataError({
-      ...userDataError,
+    ...userDataError,
       email: '',
     });
   }
