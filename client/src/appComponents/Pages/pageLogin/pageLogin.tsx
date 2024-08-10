@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'
 import '../../cssTextFonts/fonts.css'
 import Image from 'next/image';
-import imgBackgroundLoginA1 from '../../Images/imgBackgroundLoginA4.jpg';
+import imgBackgroundLoginA1 from '../../images/imgBackgroundLoginA4.jpg';
 import TextBox from '../../uiComponents/texbox'; 
 import { UserData } from '../../interfaces/types';
 import { handleEmailChange, handlePasswordChange } from '../../utils/useFormHandlers';
@@ -42,7 +42,7 @@ const PageLogin: React.FC = () => {
           <div className='w-full h-full absolute bg-black opacity-60'></div>
           <div className='w-full h-full absolute flex flex-col justify-center items-center'>
             <p className='text-white font-PlayfairDisplay text-2xl'>
-              “Life is really simple, but we insist on making it complicated.”
+              &apos;&apos;Life is really simple, but we insist on making it complicated.&apos;&apos;
             </p>
             <p className='text-white font-PlayfairDisplay text-2xl'>
               - Confucius
